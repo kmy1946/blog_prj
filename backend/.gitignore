@@ -1,0 +1,5 @@
+build/
+media/
+accounts/migrations/
+blog_app/migrations/
+blog_app/__pycache__/
