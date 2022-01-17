@@ -1,16 +1,15 @@
+from sys import exec_prefix
 from rest_framework import generics, permissions, viewsets, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import UserAccount
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserListSerializer
 
-#####################
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from rest_framework.response import Response
 from rest_framework.views import APIView
-####################
-
+from rest_framework.generics import ListAPIView
 
 class CustomUserCreate(APIView):
     permission_classes = [permissions.AllowAny]
@@ -24,17 +23,18 @@ class CustomUserCreate(APIView):
         return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
-
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = UserAccount.objects.all()
     serializer_class = UserSerializer
 
-
-
 #############################################↓
+
+class UserListView(ListAPIView):
+    queryset = UserAccount.objects.all()
+    serializer_class = UserListSerializer
+    permission_classes = (permissions.AllowAny, )
+
 class SignupView(APIView):
     permission_classes = (permissions.AllowAny, )
 
@@ -72,4 +72,9 @@ class BlacklistTokenUpdateView(APIView):
             token.blacklist()
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            exception_deal = 'Black List Token Exception'
+            return Response(status=status.HTTP_400_BAD_REQUEST + exception_deal)
+
+###############################################################################
+
+###############################################################################

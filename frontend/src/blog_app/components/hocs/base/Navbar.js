@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../actions/auth';
+import { logout } from '../../actions/auth';
 import { Button } from '@material-ui/core';
 
 const Navbar = ({ logout, isAuthenticated }) => {
@@ -15,10 +15,10 @@ const Navbar = ({ logout, isAuthenticated }) => {
     const guestLinks = () => (
         <Fragment>
             <li className='nav-item'>
-                <Link className='nav-link' to='/login'>Login</Link>
+                <Link className='nav-link' to='/register/signin'>Login</Link>
             </li>
             <li className='nav-item'>
-                <Link className='nav-link' to='/signup'>Sign Up</Link>
+                <Link className='nav-link' to='/register/signup'>Sign Up</Link>
             </li>
             <li className='nav-item'>
                 <Link className='nav-link' to='/blog'>blog</Link>
@@ -26,9 +26,9 @@ const Navbar = ({ logout, isAuthenticated }) => {
             <li className='nav-item'>
                 <Link className='nav-link' to='/register/logout'>logout</Link>
             </li>
-            <Button href="#" color="primary" variant="outlined" to="/logout">
-                Logout
-            </Button>
+            <li className='nav-item'>
+                <Link className='nav-link' to='/register/signin'>Guest Page</Link>
+            </li>
         </Fragment>
     );
 
@@ -41,18 +41,20 @@ const Navbar = ({ logout, isAuthenticated }) => {
             <li className='nav-item'>
                 <Link className='nav-link' to='/admin/create'>Create</Link>
             </li>
+            <li className='nav-item'>
+                <Link className='nav-link' to='/admin/create'>User Page !!!!!!</Link>
+            </li>
         </ul>
         <ul className="navbar-nav">
+            {/*
             <li className='nav-item'>
                 <a className='nav-link' href='#!' onClick={logout_user}>Logout</a>
             </li>
+            */}
             <li className='nav-item'>
-                <Link className='nav-link' to='/register/logout'>logoutttt</Link>
+                <Link className='nav-link' to='/register/logout'>logout</Link>
             </li>
         </ul>
-        <Button href="#" color="primary" variant="outlined" to="/logout">
-		    Logout
-		</Button>
     </Fragment>
     );
 

@@ -17,7 +17,6 @@ const Blog = () => {
               console.log(`Error Occured!!\n${err}`)
             }
         }
-
         fetchData();
     }, []);
 
@@ -26,12 +25,12 @@ const Blog = () => {
             try {
                 const res = await axios.get(process.env.REACT_APP_API_URL + `/posts/`);
                 setBlogs(res.data);
+                console.log(`Axios Runned \n ${res.data}`)
             }
             catch (err) {
-
+              console.log(`Error Occured!!\n${err}`)
             }
         }
-
         fetchBlogs();
     }, []);
 
@@ -47,7 +46,7 @@ const Blog = () => {
         
         blogs.map(blogPost => {
             return list.push(
-                <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" >
                     <div className="col p-4 d-flex flex-column position-static">
                         <strong className="d-inline-block mb-2 text-primary">{capitalizeFirstLetter(blogPost.category)}</strong>
                         <h3 className="blog_title mb-0">{blogPost.title}</h3>
@@ -58,6 +57,7 @@ const Blog = () => {
                     <div className="blog_thumbnail col-auto d-none d-lg-block">
                         <img width='200' height='250' src={blogPost.thumbnail} alt='thumbnail' />
                     </div>
+                    <p className='blog_author'>{blogPost.author.username}　さん　</p>
                 </div>
             );
         });
@@ -77,7 +77,6 @@ const Blog = () => {
 
         return result;
     };
-
     return (
         <div className='container mt-3'>
             <div className="nav-scroller py-1 mb-2">
@@ -98,6 +97,7 @@ const Blog = () => {
                     <div className="col-auto d-none d-lg-block">
                       <img src={featuredBlog.thumbnail} className='featured_thumbnail' alt='thumbnail' />
                     </div>
+                    <p className='featured_author'>{ featuredBlog.author && featuredBlog.author.username }　さん</p>
                 </div>
                 <p className="pt-4">
                   <Link to={`/blog/${featuredBlog.slug}`} className="text-white">

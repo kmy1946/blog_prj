@@ -1,5 +1,6 @@
 from rest_framework import generics, permissions, viewsets
 from .models import Post
+from accounts.models import UserAccount
 from .permissions import IsAuthorOrReadOnly
 from .serializers import PostSerializer
 
@@ -44,9 +45,9 @@ class PostCategoryView(APIView):
 
         return Response(serializer.data)
 
-
+# admin/
 
 class CreatePost(generics.CreateAPIView):
-    permission_classes = [permissions.AllowAny]#[permissions.IsAuthenticated]#
+    permission_classes = [permissions.IsAuthenticated]#[permissions.AllowAny]#[permissions.IsAuthenticated]#
     queryset = Post.objects.all()
     serializer_class = PostSerializer

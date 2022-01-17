@@ -13,6 +13,8 @@ urlpatterns = router.urls
 
 
 urlpatterns = [
+  path('', views.UserListView.as_view()),
+  
   path('signup', views.SignupView.as_view()),
 
   path('register/', views.CustomUserCreate.as_view(), name="create_user"),#############

@@ -40,6 +40,11 @@
 .top_jumbotron {
   background-color: rgb(174, 216, 250);
 }
+.blog_author {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+}
 .blog_title {
 	width: 360px;  
 	white-space: nowrap;  
@@ -66,4 +71,10 @@
   width:200px;
   height:250;
   opacity: 0.8;
+}
+.featured_author {
+  color: black;
+  position: absolute;
+  top: 
+  320px;
 }

@@ -1,20 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "./App.css";
-import Home from './containers/Home';
-import Logins from './containers/Login';
-import Signups from './containers/Signup';
+import Home from './blog_app/Home';
+import Logins from './blog_app/components/containers/Login';
+import Signups from './blog_app/components/containers/Signup';
 import { Provider } from 'react-redux';
 import store from './store';
-import Layout from './hocs/Layout';
-import Blog from './components/Blog';
-import Category from './components/Category';
-import BlogDetail from './components/BlogDetail';
-import NotFound from './hocs/Errors/NotFound';
-import Create from './components/admin/Create';
-import SignUp from './containers/registers/register';
-import SignIn from './containers/registers/login';
-import LogOut from './containers/registers/logout';
+import Layout from './blog_app/components/hocs/base/Layout';
+import Blog from './blog_app/components/Blog';
+import Category from './blog_app/components/Category';
+import BlogDetail from './blog_app/components/BlogDetail';
+import NotFound from './blog_app/components/hocs/base/Layout';
+import Create from './blog_app/components/admin/Create';
+import SignUp from './blog_app/components/registers/register';
+import SignIn from './blog_app/components/registers/login';
+import LogOut from './blog_app/components/registers/logout';
+
+import { reset_post_status } from './blog_app/components/actions/post';
+
 
 const App = () => (
     <Provider store={store}>

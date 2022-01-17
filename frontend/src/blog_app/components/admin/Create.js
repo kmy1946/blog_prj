@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axiosInstance from '../../axios';
+import { useSelector } from 'react-redux';
+import axiosInstance from '../../../axios';
 import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -9,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Loader from 'react-loader-spinner';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -50,15 +52,15 @@ export default function Create() {
 			.replace(/-+$/, ''); // Trim - from end of text
 	}
 
+	const loading = useSelector((state) => state.post.loading)
 	const history = useHistory();
 	const initialFormData = Object.freeze({
-		author: '',
+		//author: '',
 		title: '',
 		slug: '',
 		category: '',
 		body: '',
 	});
-
 	const [formData, updateFormData] = useState(initialFormData);
 
 	const handleChange = (e) => {
@@ -82,7 +84,7 @@ export default function Create() {
 		e.preventDefault();
 		axiosInstance
 			.post(`posts/admin/create/`, {
-				author: 2,
+				//author: 2,
 				title: formData.title,
 				slug: formData.slug,
 				category: formData.category,
@@ -105,6 +107,7 @@ export default function Create() {
 				</Typography>
 				<form className={classes.form} noValidate>
 					<Grid container spacing={2}>
+			{/*
 						<Grid item xs={12}>
 							<TextField
 								variant="outlined"
@@ -117,6 +120,7 @@ export default function Create() {
 								onChange={handleChange}
 							/>
 						</Grid>
+			*/}
 						<Grid item xs={12}>
 							<TextField
 								variant="outlined"
@@ -171,14 +175,7 @@ export default function Create() {
 							/>
 						</Grid>
 					</Grid>
-					<Button
-						type="submit"
-						fullWidth
-						variant="contained"
-						color="primary"
-						className={classes.submit}
-						onClick={handleSubmit}
-					>
+					<Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} onClick={handleSubmit}>
 						Create Post
 					</Button>
 				</form>
