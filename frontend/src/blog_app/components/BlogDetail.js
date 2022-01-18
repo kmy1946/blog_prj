@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Box, } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -60,6 +61,8 @@ const useStyles = makeStyles(theme => ({
 const BlogDetail = (props) => {
     const classes = useStyles();
     const [blog, setBlog] = useState({});
+    const blog_id = localStorage.setItem(`blog_id&${blog.slug}`, blog.id);//localStorage.setItem(`${blog.id}`)
+    const blog_slug = localStorage.setItem(`blog_slug&${blog.id}`, blog.slug);
 
     useEffect(() => {
         const slug = props.match.params.id;
@@ -70,7 +73,6 @@ const BlogDetail = (props) => {
                 setBlog(res.data);
             }
             catch (err) {
-
             }
         };
 
@@ -102,6 +104,12 @@ const BlogDetail = (props) => {
               <div className={classes.detail_thumbnail}>
                   <img width='200' height='250' src={blog.thumbnail} alt='thumbnail' />
               </div>
+              <div className='text-left'>
+                <Link color="textPrimary" to={`/admin/edit/${blog.slug}`}
+									className={classes.link} >
+									<EditIcon></EditIcon>
+								</Link>
+              </div>
               <div className='text-right'>
                 <small>{blog.created_at}</small>
                 <br />
@@ -111,7 +119,11 @@ const BlogDetail = (props) => {
               <hr />
             </div>
         </div>
-        <p className='text-right'><Link to='/blog' className={classes.link_back_to_top}>一覧に戻る</Link></p>
+        <p className='text-right'>
+          <Link to='/blog' className={classes.link_back_to_top}>
+            一覧に戻る
+          </Link>
+        </p>
       </Box>
       </div>
       </Fragment>

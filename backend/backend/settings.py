@@ -133,7 +133,8 @@ REST_USE_JWT = True
 REST_SESSION_LOGIN = True
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser'
+        #'rest_framework.permissions.IsAdminUser'
+        'rest_framework.permissions.IsAuthenticated',
         #'rest_framework.permissions.AllowAny'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -154,7 +155,7 @@ REST_AUTH_SERIALIZERS = {
 CORS_ORIGIN_ALLOW_ALL = True
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=50),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': True,#
     'BLACKLIST_AFTER_ROTATION': True,

@@ -11,7 +11,7 @@ class Categories(models.TextChoices):
     TECHNOLOGY = 'テクノロジー'
     CULTURE = '文化'
     BUSINESS = 'ビジネス'
-    SCIENCE = '科学技術'
+    SCIENCE = 'サイエンス'
     LIFE_STYLE = '生活'
     TRAVEL= '旅行'
 
@@ -19,7 +19,7 @@ class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
-    slug = models.SlugField()#unique=True
+    slug = models.SlugField(unique=True)
     category = models.CharField(max_length=50, choices=Categories.choices, default=Categories.NO_CATEGORY)
     thumbnail = models.ImageField(blank=True, null=True)
     body = models.TextField(blank=True)

@@ -11,26 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Loader from 'react-loader-spinner';
-
-const useStyles = makeStyles((theme) => ({
-	paper: {
-		marginTop: theme.spacing(8),
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-	},
-	avatar: {
-		margin: theme.spacing(1),
-		backgroundColor: theme.palette.secondary.main,
-	},
-	form: {
-		width: '100%', // Fix IE 11 issue.
-		marginTop: theme.spacing(3),
-	},
-	submit: {
-		margin: theme.spacing(3, 0, 2),
-	},
-}));
+import { MenuItem, Select } from '@material-ui/core';
 
 export default function Create() {
 	function slugify(string) {
@@ -52,10 +33,31 @@ export default function Create() {
 			.replace(/-+$/, ''); // Trim - from end of text
 	}
 
+
+	const useStyles = makeStyles((theme) => ({
+		paper: {
+			marginTop: theme.spacing(8),
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+		},
+		avatar: {
+			margin: theme.spacing(1),
+			backgroundColor: theme.palette.secondary.main,
+		},
+		form: {
+			width: '100%', // Fix IE 11 issue.
+			marginTop: theme.spacing(3),
+		},
+		submit: {
+			margin: theme.spacing(3, 0, 2),
+		},
+	}));
+
 	const loading = useSelector((state) => state.post.loading)
 	const history = useHistory();
 	const initialFormData = Object.freeze({
-		//author: '',
+		author_user: '',
 		title: '',
 		slug: '',
 		category: '',
@@ -80,20 +82,26 @@ export default function Create() {
 		}
 	};
 
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		const slug_x = 'fff'
 		axiosInstance
 			.post(`posts/admin/create/`, {
-				//author: 2,
+				author_user: localStorage.getItem('username_id'),
 				title: formData.title,
-				slug: formData.slug,
+				slug: slug_x,
 				category: formData.category,
 				body: formData.body,
+				//headers: { 'Authorization': `JWT ${localStorage.getItem('access_token')}` }
+				//headers: { Authorization: localStorage.getItem('access_token') ? 'JWT ' + localStorage.getItem('access_token') : null, },
 			})
 			.then((res) => {
 				history.push('/admin/create');
+				alert(`以下の内容で投稿しました？\nタイトル：${res.data.title}\nスラグ：${res.data.slug}\nカテゴリー：${res.data.category}\n本文${res.data.body}}`)
 			});
 	};
+	
 
 	const classes = useStyles();
 
@@ -107,20 +115,6 @@ export default function Create() {
 				</Typography>
 				<form className={classes.form} noValidate>
 					<Grid container spacing={2}>
-			{/*
-						<Grid item xs={12}>
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
-								id="author"
-								label="Post author"
-								name="author"
-								autoComplete="author"
-								onChange={handleChange}
-							/>
-						</Grid>
-			*/}
 						<Grid item xs={12}>
 							<TextField
 								variant="outlined"
@@ -134,31 +128,18 @@ export default function Create() {
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
-								id="slug"
-								label="Post slug"
-								name="slug"
-								autoComplete="slug"
-								onChange={handleChange}
-								multiline
-								rows={4}
-							/>
-						</Grid>
-						<Grid item xs={12}>
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
-								id="category"
-								label="category"
-								name="category"
-								autoComplete="category"
-								value={formData.category}
-								onChange={handleChange}
-							/>
+							<Select required fullWidth
+								id="category" label="Select category" name="category"
+								autoComplete="category" value={formData.category}
+								onChange={handleChange} multiline rows={8} >
+                  <MenuItem value="カテゴリーなし">カテゴリーなし</MenuItem>
+                  <MenuItem value="テクノロジー">テクノロジー</MenuItem>
+                  <MenuItem value="文化">文化</MenuItem>
+                  <MenuItem value="ビジネス">ビジネス</MenuItem>
+                  <MenuItem value="サイエンス">サイエンス</MenuItem>
+                  <MenuItem value="生活">生活</MenuItem>
+                  <MenuItem value="旅行">旅行</MenuItem>
+              </Select>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField

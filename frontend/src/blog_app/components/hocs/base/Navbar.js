@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import { Button } from '@material-ui/core';
+import axiosInstance from '../../../../axios';
 
 const Navbar = ({ logout, isAuthenticated }) => {
     const [redirect, setRedirect] = useState(false);
@@ -11,6 +12,32 @@ const Navbar = ({ logout, isAuthenticated }) => {
         logout();
         setRedirect(true);
     };
+
+
+
+
+	
+	const handleConvert = (e) => {
+		e.preventDefault();
+		//console.log(formData);
+
+		axiosInstance
+			.get(`users/loginuser/`, {
+				access_token: localStorage.getItem('access_token'),
+				//access_token: localStorage.setItem(`ok accesstoken!!! \n${access_token}`),
+			})
+			.then((res2) => {
+				const result = res2.data;
+        console.log(result)
+				localStorage.setItem('access_token', res2.data.access);
+				localStorage.setItem('username_id', res2.data.id);
+				
+				//console.log(res);
+				//console.log(res.data);
+			})
+
+	};
+
 
     const guestLinks = () => (
         <Fragment>
@@ -28,6 +55,9 @@ const Navbar = ({ logout, isAuthenticated }) => {
             </li>
             <li className='nav-item'>
                 <Link className='nav-link' to='/register/signin'>Guest Page</Link>
+            </li>
+            <li className='nav-item'>
+                <Link className='nav-link' to='/admin/create'>Create</Link>
             </li>
         </Fragment>
     );
@@ -61,7 +91,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
     return (
         <Fragment>
             <nav className='navbar navbar-expand-lg navbar-light bg-light'>
-                <Link className='navbar-brand' to='/'>Blog</Link>
+                <Link className='navbar-brand' to='/blog'>Blog</Link>
                 <button 
                     className='navbar-toggler' 
                     type='button' 

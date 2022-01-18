@@ -49,6 +49,26 @@ export default function SignIn() {
 		});
 	};
 
+
+
+
+
+	const handleConvert = () => {
+		console.log(formData);
+
+		axiosInstance
+			.get(`users/loginuser/`, {
+				access_token: localStorage.getItem('access_token'),
+			})
+			.then((res2) => {
+				const result = res2.data;
+        console.log(result)
+				localStorage.setItem('username_id', res2.data.id);
+				
+			})
+	};
+
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(formData);
@@ -57,6 +77,7 @@ export default function SignIn() {
 			.post(`token/`, {
 				email: formData.email,
 				password: formData.password,
+				
 			})
 			.then((res) => {
 				localStorage.setItem('access_token', res.data.access);
@@ -66,7 +87,8 @@ export default function SignIn() {
 				history.push('/blog');
 				//console.log(res);
 				//console.log(res.data);
-			});
+			})
+			.then(() => {handleConvert()})
 	};
 
 	const classes = useStyles();
@@ -80,27 +102,13 @@ export default function SignIn() {
 					Sign in
 				</Typography>
 				<form className={classes.form} noValidate>
-					<TextField
-						variant="outlined"
-						margin="normal"
-						required
-						fullWidth
-						id="email"
-						label="Email Address"
-						name="email"
-						autoComplete="email"
-						autoFocus
+					<TextField variant="outlined" margin="normal" required
+						fullWidth id="email" label="Email Address" name="email"
+						autoComplete="email" autoFocus
 						onChange={handleChange}
 					/>
-					<TextField
-						variant="outlined"
-						margin="normal"
-						required
-						fullWidth
-						name="password"
-						label="Password"
-						type="password"
-						id="password"
+					<TextField variant="outlined" margin="normal" required
+						fullWidth name="password" label="Password" type="password" id="password"
 						autoComplete="current-password"
 						onChange={handleChange}
 					/>
@@ -108,11 +116,8 @@ export default function SignIn() {
 						control={<Checkbox value="remember" color="primary" />}
 						label="Remember me"
 					/>
-					<Button
-						type="submit"
-						fullWidth
-						variant="contained"
-						color="primary"
+					<Button type="submit" fullWidth
+						variant="contained" color="primary"
 						className={classes.submit}
 						onClick={handleSubmit}
 					>

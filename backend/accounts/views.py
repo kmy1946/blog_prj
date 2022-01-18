@@ -77,4 +77,15 @@ class BlacklistTokenUpdateView(APIView):
 
 ###############################################################################
 
+
+class LoginUserView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserListSerializer
+    def get_object(self):
+        return self.request.user #ログインしているユーザーを返す
+    #PUTを無効化
+    def update(self, request, *args, **kwargs):
+        response = {"message": 'PUT method is not allowed'}
+        return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+
 ###############################################################################

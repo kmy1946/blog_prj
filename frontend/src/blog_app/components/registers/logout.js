@@ -11,6 +11,11 @@ export default function LogOut() {
 		});
 		localStorage.removeItem('access_token');
 		localStorage.removeItem('refresh_token');
+		localStorage.removeItem('author_user');
+		localStorage.removeItem('author');
+		localStorage.removeItem('username');
+		localStorage.removeItem('username_id');
+		localStorage.clear()
 		axiosInstance.defaults.headers['Authorization'] = null;
 		history.push('/register/signin');
 	});

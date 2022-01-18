@@ -19,4 +19,7 @@ urlpatterns = [
 
   path('register/', views.CustomUserCreate.as_view(), name="create_user"),#############
   path('logout/blacklist/', views.BlacklistTokenUpdateView.as_view(), name="blacklist"),
+
+
+  path('loginuser/',views.LoginUserView.as_view(),name='loginuser'),
 ]

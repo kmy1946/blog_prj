@@ -17,7 +17,8 @@ import SignIn from './blog_app/components/registers/login';
 import LogOut from './blog_app/components/registers/logout';
 
 import { reset_post_status } from './blog_app/components/actions/post';
-
+//import Edit from './blog_app/components/admin/Edit';
+import Edit from './blog_app/components/admin/Edit';
 
 const App = () => (
     <Provider store={store}>
@@ -31,8 +32,11 @@ const App = () => (
 
                     <Route exact path='/register/signup' component={SignUp} />
                     <Route exact path='/register/signin' component={SignIn} />
-
+                    
                     <Route exact path='/admin/create' component={Create} />
+                    <Route exact path='/admin/edit/:id' component={Edit} />
+                    
+                    {/*<Route exact path="/admin/delete/:id" component={Delete} />*/}
                     <Route exact path='/login' component={Logins} />
                     <Route exact path='/signup' component={Signups} />
                     <Route exact path='/register/logout' component={LogOut} />
