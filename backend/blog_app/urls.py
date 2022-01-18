@@ -17,4 +17,5 @@ urlpatterns = [
     path('admin/create/', views.CreatePost.as_view(), name='createpost'),
     path('admin/edit/postdetail/<slug>/', views.AdminPostDetail.as_view(), name='admindetailpost'),
     path('admin/edit/<slug>/', views.EditPost.as_view(), name='editpost'),
+    path('admin/delete/<slug>/', views.DeletePost.as_view(), name='deletepost'),
 ]

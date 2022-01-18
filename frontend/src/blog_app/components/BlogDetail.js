@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Box, } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -108,6 +109,9 @@ const BlogDetail = (props) => {
                 <Link color="textPrimary" to={`/admin/edit/${blog.slug}`}
 									className={classes.link} >
 									<EditIcon></EditIcon>
+								</Link>
+                <Link color="textPrimary" to={'/admin/delete/' + blog.slug} className={classes.link} >
+									<DeleteForeverIcon></DeleteForeverIcon>
 								</Link>
               </div>
               <div className='text-right'>

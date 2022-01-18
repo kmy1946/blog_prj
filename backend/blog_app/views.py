@@ -7,7 +7,7 @@ from .serializers import PostSerializer
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, RetrieveDestroyAPIView
 
 class PostViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthorOrReadOnly,)
@@ -63,3 +63,9 @@ class EditPost(UpdateAPIView):
     serializer_class = PostSerializer
     lookup_field = 'slug'
     permission_classes = (permissions.AllowAny, )#[permissions.AllowAny]
+
+class DeletePost(RetrieveDestroyAPIView):
+    serializer_class = PostSerializer
+    lookup_field = 'slug'
+    queryset = Post.objects.all()
+    permission_classes = [permissions.AllowAny]

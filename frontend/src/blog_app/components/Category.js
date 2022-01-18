@@ -8,7 +8,6 @@ const Category = (props) => {
     const [blogs, setBlogs] = useState([]);
     const [currentCategory, setCurrentCategory] = useState('');
     const [image, setImage] = useState()
-
     useEffect(() => {
         const category = props.match.params.id;
         setCurrentCategory(capitalizeFirstLetter(category));
@@ -18,7 +17,6 @@ const Category = (props) => {
                 'Content-Type': 'application/json',
             }
         };
-
         const fetchData = async () => {
             try {
                 const res = await axios.post(`${process.env.REACT_APP_API_URL}/posts/category`, { category }, config);
@@ -30,17 +28,14 @@ const Category = (props) => {
 
         fetchData();
     }, [props.match.params.id]);
-
     const capitalizeFirstLetter = (word) => {
         if (word)
             return word.charAt(0).toUpperCase() + word.slice(1);
         return '';
     };
-
     const getCategoryBlogs = () => {
         let list = [];
         let result = [];
-
         blogs.map(blogPost => {
             return list.push(
                 <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -64,7 +59,6 @@ const Category = (props) => {
                 </div>
             );
         });
-
         for (let i = 0; i < list.length; i += 2 ) {
             result.push(
                 <div key={i} className='row mb-2'>
@@ -77,10 +71,8 @@ const Category = (props) => {
                 </div>
             )
         }
-
         return result;
     };
-
     return (
         <div className='container mt-3'>
             <h3 className='display-6'>{currentCategory}</h3>
@@ -99,5 +91,4 @@ const Category = (props) => {
         </div>
     );
 };
-
 export default Category;

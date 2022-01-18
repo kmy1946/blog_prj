@@ -19,6 +19,7 @@ import LogOut from './blog_app/components/registers/logout';
 import { reset_post_status } from './blog_app/components/actions/post';
 //import Edit from './blog_app/components/admin/Edit';
 import Edit from './blog_app/components/admin/Edit';
+import Delete from './blog_app/components/admin/Delete';
 
 const App = () => (
     <Provider store={store}>
@@ -35,6 +36,7 @@ const App = () => (
                     
                     <Route exact path='/admin/create' component={Create} />
                     <Route exact path='/admin/edit/:id' component={Edit} />
+                    <Route exact path='/admin/delete/:id' component={Delete} />
                     
                     {/*<Route exact path="/admin/delete/:id" component={Delete} />*/}
                     <Route exact path='/login' component={Logins} />
