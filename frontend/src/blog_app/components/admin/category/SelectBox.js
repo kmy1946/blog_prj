@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -19,10 +19,8 @@ const SelectBox = (props) => {
   return (
     <FormControl className={classes.formControl}>
       <InputLabel>{props.label}</InputLabel>
-      <Select defaultValue=""
-        required={props.required} value={props.value}
-        onChange={(event) => props.select(event.target.value)}
-      >
+      <Select defaultValue="" required={props.required} value={props.value}
+        onChange={(event) => props.select(event.target.value)} >
         {props.options.map((option) => (
           <MenuItem key={option.id} value={option.id}>{option.name}</MenuItem>
         ))}
@@ -30,5 +28,4 @@ const SelectBox = (props) => {
     </FormControl>
   )
 }
-
 export default SelectBox

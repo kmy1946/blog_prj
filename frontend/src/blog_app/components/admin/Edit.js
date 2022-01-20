@@ -37,14 +37,13 @@ export default function Edit(props) {
 		id: '',
 		title: '',
 		slug: '',
-		excerpt: '',
 		body: '',
     category: '',
+    excerpt: '',
 	});
 
 	const [formData, updateFormData] = useState(initialFormData);
-  const [category, setCategory] = useState("");
-  
+  //const [category, setCategory] = useState("");
 	useEffect(() => {
 		axiosInstance.get('posts/admin/edit/postdetail/' + id + '/')
     .then((res) => {
@@ -53,12 +52,13 @@ export default function Edit(props) {
         ['author_user']: localStorage.getItem('username_id'),
         ['id']: localStorage.getItem(`blog_id${slug}`),//res.data.id,//
 				['title']: res.data.title,
-				['excerpt']: res.data.excerpt,
 				['slug']: res.data.slug,
 				['body']: res.data.body,
         ['category']: res.data.category,
+        ['excerpt']: res.data.excerpt,
 			});
 			console.log(res.data);
+      //alert(`${res.data.category}`)
 		});
 	}, [updateFormData]);
 
@@ -72,25 +72,23 @@ export default function Edit(props) {
 	const handleSubmit = (e, props) => {
 		e.preventDefault();
 		console.log(formData);
-
-    //const blog_id = props.match.params.id;/////////////////////
-    //const blog_id = props.match.params.id;
     const blog_id = localStorage.getItem(`blog_id&${slug}`);
-    const blog_slug = localStorage.getItem(`blog_slug&${id}`)
-
 		axiosInstance.put(`posts/admin/edit/${slug}/`, {
       id: localStorage.getItem(`blog_id${slug}`),
 			title: formData.title,
 			slug: formData.slug,
 			author_user: localStorage.getItem('username_id'),
-			excerpt: formData.excerpt,
 			body: formData.body,
+      category: formData.category,
+      excerpt: formData.excerpt,
 		});
     alert(`blog_id:${blog_id}`)
+    alert(`category:${formData.category}`)
 		history.push({
 			pathname: `/blog`,
 		});
     alert(`slug:${slug},\n id:${id}`)
+    alert(`${formData.excerpt}`);
 		window.location.reload();
 	};
 
@@ -112,10 +110,18 @@ export default function Edit(props) {
 								onChange={handleChange} />
 						</Grid>
 						<Grid item xs={12} >
-              <SelectBox
-              id="category" label="Post category" name="category" value={formData.category}
-                label={"カテゴリー"} required={true} options={categories} select={setCategory}
-                  onChange={handleChange} />
+            <Select required fullWidth
+								id="category" label="Select category" name="category"
+								autoComplete="category" value={formData.category}
+								onChange={handleChange} multiline rows={8} >
+                  <MenuItem value="カテゴリーなし">カテゴリーなし</MenuItem>
+                  <MenuItem value="テクノロジー">テクノロジー</MenuItem>
+                  <MenuItem value="文化">文化</MenuItem>
+                  <MenuItem value="ビジネス">ビジネス</MenuItem>
+                  <MenuItem value="サイエンス">サイエンス</MenuItem>
+                  <MenuItem value="生活">生活</MenuItem>
+                  <MenuItem value="旅行">旅行</MenuItem>
+              </Select>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField variant="outlined" required fullWidth

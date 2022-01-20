@@ -62,43 +62,51 @@ export default function Create() {
 		slug: '',
 		category: '',
 		body: '',
+		thumbnail: null,
 	});
-	const [formData, updateFormData] = useState(initialFormData);
+//	const [formData, updateFormData] = useState(initialFormData);
+	const [postData, updateFormData] = useState(initialFormData);
+	const [postthumbnail, setPostthumbnail] = useState(null)
 
+	
 	const handleChange = (e) => {
+		if ([e.target.name] == 'thumbnail') {
+			setPostthumbnail({
+				thumbnail: e.target.files,
+			});
+			console.log(e.target.files);
+		}
 		if ([e.target.name] == 'title') {
 			updateFormData({
-				...formData,
-				// Trimming any whitespace
+				...postData,
 				[e.target.name]: e.target.value.trim(),
 				['slug']: slugify(e.target.value.trim()),
 			});
 		} else {
 			updateFormData({
-				...formData,
-				// Trimming any whitespace
+				...postData,
 				[e.target.name]: e.target.value.trim(),
 			});
 		}
 	};
 
+	const config = { Headers: {'Content-Type': 'multipart/form-data'} }
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const slug_x = 'fff'
+		let formData = new FormData();
+		formData.append('author_user', localStorage.getItem('username_id'),);
+		formData.append('title', postData.title);
+		formData.append('slug', postData.slug_x);
+		formData.append('category', postData.category);
+		formData.append('body', postData.body);
+		formData.append('thumbnail', postthumbnail.thumbnail[0]);
 		axiosInstance
-			.post(`posts/admin/create/`, {
-				author_user: localStorage.getItem('username_id'),
-				title: formData.title,
-				slug: slug_x,
-				category: formData.category,
-				body: formData.body,
-				//headers: { 'Authorization': `JWT ${localStorage.getItem('access_token')}` }
-				//headers: { Authorization: localStorage.getItem('access_token') ? 'JWT ' + localStorage.getItem('access_token') : null, },
-			})
+			.post(`posts/admin/create/`, formData)//, config)
 			.then((res) => {
 				history.push('/admin/create');
-				alert(`以下の内容で投稿しました？\nタイトル：${res.data.title}\nスラグ：${res.data.slug}\nカテゴリー：${res.data.category}\n本文${res.data.body}}`)
+				alert(`以下の内容で投稿しました\nタイトル：${res.data.title}\nスラグ：${res.data.slug}\nカテゴリー：${res.data.category}\n本文${res.data.body}}\nサムネイル：${res.data.thumbnail}`)
 			});
 	};
 	
@@ -130,7 +138,7 @@ export default function Create() {
 						<Grid item xs={12}>
 							<Select required fullWidth
 								id="category" label="Select category" name="category"
-								autoComplete="category" value={formData.category}
+								autoComplete="category" value={postData.category}
 								onChange={handleChange} multiline rows={8} >
                   <MenuItem value="カテゴリーなし">カテゴリーなし</MenuItem>
                   <MenuItem value="テクノロジー">テクノロジー</MenuItem>
@@ -142,18 +150,15 @@ export default function Create() {
               </Select>
 						</Grid>
 						<Grid item xs={12}>
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
-								id="body"
-								label="body"
-								name="body"
-								autoComplete="body"
-								onChange={handleChange}
-								multiline
-								rows={4}
-							/>
+							<div className="form-element">
+								<input type="file" accept="image/*" id="thumbnail" label="Select thumbnail" name="thumbnail" required
+								autoComplete="thumbnail" multiple onChange={handleChange} />
+            	</div>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField variant="outlined" required fullWidth
+								id="body" label="body" name="body" autoComplete="body"
+								onChange={e => handleChange(e)} multiline rows={4} />
 						</Grid>
 					</Grid>
 					<Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} onClick={handleSubmit}>

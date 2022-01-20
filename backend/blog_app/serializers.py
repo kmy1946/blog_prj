@@ -9,7 +9,7 @@ class PostSerializer(serializers.ModelSerializer):
     author_user = serializers.PrimaryKeyRelatedField(source="author", queryset=User.objects.all(), write_only=True)
     class Meta:
         model = Post
-        fields = ('id', 'author', 'author_user', 'title', 'slug', 'category', 'thumbnail', 'body', 'featured', 'created_at', 'updated_at',)#'__all__'
+        fields = ('id', 'author', 'author_user', 'title', 'slug', 'category', 'thumbnail', 'body', 'featured', 'excerpt', 'created_at', 'updated_at',)#'__all__'
         lookup_field = 'slug'
 
     def create(self, validated_data):
