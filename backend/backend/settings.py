@@ -4,11 +4,15 @@ from datetime import timedelta
 from dotenv import (find_dotenv, load_dotenv,)
 load_dotenv(find_dotenv())
 
+#AWS_SES_ACCESS_KEY_ID = os.environ.get('AWS_SES_ACCESS_KEY_ID')
+#AWS_SES_ACCESS_SECRET_ACCESS_KEY = os.environ.get('AWS_SES_ACCESS_SECRET_ACCESS_KEY')
+#EMAIL_BACKEND='django_ses.SESBackend'
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -35,6 +39,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'blog_app.apps.BlogAppConfig',
+    'django_ses'
 ]
 
 SITE_ID = 1
@@ -121,13 +126,14 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_ADDRESS')
 
-STATIC_URL = '/static/'
-STATICFILES_ROOT = (
-    os.path.join(BASE_DIR, 'static'),
-)
+#STATIC_URL = '/static/'
+#STATICFILES_ROOT = ( os.path.join(BASE_DIR, 'static'),)#local
+
+STATIC_URL = '/usr/share/nginx/html/static/'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#local
+MEDIA_ROOT='/usr/share/nginx/html/media/'
 
 REST_USE_JWT = True
 REST_SESSION_LOGIN = True
