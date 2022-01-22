@@ -137,12 +137,12 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_ADDRESS')
 
-#STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 #STATICFILES_ROOT = ( os.path.join(BASE_DIR, 'static'),)#local
 
 STATIC_ROOT = '/usr/share/nginx/html/static/'
 
-#MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#local
 MEDIA_ROOT='/usr/share/nginx/html/media/'
 
