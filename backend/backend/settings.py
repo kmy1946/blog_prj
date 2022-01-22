@@ -1,7 +1,11 @@
 from .settings_common import *
+from dotenv import (find_dotenv, load_dotenv,)
+load_dotenv(find_dotenv())
 #from .settings_dev import *
 
 #SECURITY WARNING: don't run with debug turned on in production!
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG=False
 ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
 LOGGING = {
