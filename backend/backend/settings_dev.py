@@ -34,3 +34,12 @@ LOGGING = {
             },
         }
     }
+
+STATIC_URL = '/static/'
+#STATICFILES_ROOT = ( os.path.join(BASE_DIR, 'static'),)#local
+
+STATIC_URL = '/usr/share/nginx/html/static/'
+
+MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#local
+MEDIA_ROOT='/usr/share/nginx/html/media/'

@@ -43,6 +43,14 @@ INSTALLED_APPS = [
     #'django_ses'
 ]
 
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS={
+    messages.ERROR:'alert alert-danger',
+    messages.WARNING:'alert alert-warning',
+    messages.SUCCESS:'alert alert-success',
+    messages.INFO:'alert alert-info',
+}
+
 SITE_ID = 1
 
 MIDDLEWARE = [
@@ -130,13 +138,13 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_ADDRESS')
 
 STATIC_URL = '/static/'
-STATICFILES_ROOT = ( os.path.join(BASE_DIR, 'static'),)#local
+#STATICFILES_ROOT = ( os.path.join(BASE_DIR, 'static'),)#local
 
-#STATIC_URL = '/usr/share/nginx/html/static/'
+STATIC_URL = '/usr/share/nginx/html/static/'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#local
-#MEDIA_ROOT='/usr/share/nginx/html/media/'
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#local
+MEDIA_ROOT='/usr/share/nginx/html/media/'
 
 REST_USE_JWT = True
 REST_SESSION_LOGIN = True
