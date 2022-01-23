@@ -158,6 +158,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.BasicAuthentication',# HTTPヘッダにセッションIDを付与してAPIに渡す
         'rest_framework.authentication.SessionAuthentication',# ブラウザにログイン・ログアウトの機能を提供する
+        
         'rest_framework.authentication.TokenAuthentication',# トークン認証の機能を提供する
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ],

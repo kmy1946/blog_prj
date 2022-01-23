@@ -8,6 +8,7 @@ from .serializers import PostSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, RetrieveDestroyAPIView
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 class PostViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthorOrReadOnly,)
