@@ -68,7 +68,9 @@ MIDDLEWARE = [
 SUMMERNOTE_THEME = 'bs4'
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://3.18.176.25:3000',
+    'http://3.18.176.25',
 ]
 
 ROOT_URLCONF = 'backend.urls'
