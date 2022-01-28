@@ -68,9 +68,7 @@ MIDDLEWARE = [
 SUMMERNOTE_THEME = 'bs4'
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://3.18.176.25:3000',
-    'http://3.18.176.25',
+    'http://localhost:3000'
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -78,7 +76,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],#'DIRS': [os.path.join(BASE_DIR), 'build'],
+        'DIRS': ['templates'],#'DIRS': [os.path.join(BASE_DIR), 'build'],#'DIRS': ['templates'],#
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -140,13 +138,13 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_ADDRESS')
 
 STATIC_URL = '/static/'
-#STATICFILES_ROOT = ( os.path.join(BASE_DIR, 'static'),)#local
+STATICFILES_ROOT = ( os.path.join(BASE_DIR, 'static'),)#local
 
-STATIC_ROOT = '/usr/share/nginx/html/static/'
+#STATIC_ROOT = '/usr/share/nginx/html/static/'
 
 MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#local
-MEDIA_ROOT='/usr/share/nginx/html/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#local
+#MEDIA_ROOT='/usr/share/nginx/html/media/'
 
 REST_USE_JWT = True
 REST_SESSION_LOGIN = True

@@ -1,7 +1,8 @@
 from .settings import *
+import os
 #SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -36,10 +37,10 @@ LOGGING = {
     }
 
 STATIC_URL = '/static/'
-#STATICFILES_ROOT = ( os.path.join(BASE_DIR, 'static'),)#local
+STATICFILES_ROOT = ( os.path.join(BASE_DIR, 'static'),)#local
 
-STATIC_URL = '/usr/share/nginx/html/static/'
+#STATIC_URL = '/usr/share/nginx/html/static/'
 
 MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#local
-MEDIA_ROOT='/usr/share/nginx/html/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#local
+#MEDIA_ROOT='/usr/share/nginx/html/media/'

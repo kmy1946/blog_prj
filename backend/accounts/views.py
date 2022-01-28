@@ -75,9 +75,6 @@ class BlacklistTokenUpdateView(APIView):
             exception_deal = 'Black List Token Exception'
             return Response(status=status.HTTP_400_BAD_REQUEST + exception_deal)
 
-###############################################################################
-
-
 class LoginUserView(generics.RetrieveUpdateAPIView):
     serializer_class = UserListSerializer
     def get_object(self):
@@ -88,4 +85,15 @@ class LoginUserView(generics.RetrieveUpdateAPIView):
         return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 
-###############################################################################
+class CheckAuthenticatedView(APIView):
+    def get(self, request, format=None):
+        user = self.request.user
+        try:
+            isAuthenticated = user.is_authenticated
+
+            if isAuthenticated:
+                return Response({ 'isAuthenticated': 'success' })
+            else:
+                return Response({ 'isAuthenticated': 'error' })
+        except:
+            return Response({ 'error': 'Something went wrong when checking authentication status' })
