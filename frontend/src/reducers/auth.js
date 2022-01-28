@@ -3,11 +3,18 @@ import {
     SIGNUP_FAIL,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    LOGOUT
+    LOGOUT,
+
+    REGISTER_SUCCESS,
+    REGISTER_FAIL,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL,
+    AUTHENTICATED_SUCCESS,
+    AUTHENTICATED_FAIL
 } from '../blog_app/components/actions/types';
 
 const initialState = {
-    token: localStorage.getItem('token'),
+    token: localStorage.getItem('access_token'),
     isAuthenticated: null,
     loading: false
 };
@@ -16,6 +23,12 @@ export default function(state = initialState, action) {
     const { type, payload } = action;
 
     switch(type) {
+        case AUTHENTICATED_SUCCESS:
+        case AUTHENTICATED_FAIL:
+            return {
+                ...state,
+                isAuthenticated: payload
+            }
         case LOGIN_SUCCESS:
             localStorage.setItem('token', payload.access);
             return {

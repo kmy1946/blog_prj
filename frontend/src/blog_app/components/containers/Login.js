@@ -40,14 +40,13 @@ const Logins = ({ login, isAuthenticated }) => {
         alert(`以下のメールアドレスでログインをリクエストをします。\n${email}`)
         login(email, password);
 
-        
         if (isAuthenticated) {
+          console.log('isAuthenticated ---> ok in Login.js')
           return <Redirect to='/toppage' />;
         } else{
-          console.log('isAuthenticated → else in Login.js')
+          console.log('isAuthenticated ---> else in Login.js')
           return <Redirect to="/toppage"/>
         }
-
     };
     return (
       <Fragment>

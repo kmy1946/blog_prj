@@ -15,9 +15,6 @@ import Create from './blog_app/components/admin/Create';
 import SignUp from './blog_app/components/registers/register';
 import SignIn from './blog_app/components/registers/login';
 import LogOut from './blog_app/components/registers/logout';
-
-import { reset_post_status } from './blog_app/components/actions/post';
-//import Edit from './blog_app/components/admin/Edit';
 import Edit from './blog_app/components/admin/Edit';
 import Delete from './blog_app/components/admin/Delete';
 
@@ -26,8 +23,7 @@ const App = () => (
         <Router>
             <Layout>
                 <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route exact path='/blog' component={Blog} />
+                    <Route exact path='/' component={Blog} />
                     <Route exact path='/category/:id' component={Category} />
                     <Route exact path='/blog/:id' component={BlogDetail} />
 
@@ -43,6 +39,7 @@ const App = () => (
                     <Route exact path='/signup' component={Signups} />
                     <Route exact path='/register/logout' component={LogOut} />
                     <Route exact path='/logout' component={LogOut} />
+
                     <Route component={NotFound} />
                     {/*<Route exact path='/reset-password' component={ResetPassword} />
                     <Route exact path='/password/reset/confirm/:uid/:token' component={ResetPasswordConfirm} />

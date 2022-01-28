@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../../axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory,Redirect } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { connect } from 'react-redux';
+import { login } from '../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function SignIn() {
+function SignIn({isAuthenticated}) {
 	const history = useHistory();
 	const initialFormData = Object.freeze({
 		email: '',
@@ -48,10 +50,6 @@ export default function SignIn() {
 			[e.target.name]: e.target.value.trim(),
 		});
 	};
-
-
-
-
 
 	const handleConvert = () => {
 		console.log(formData);
@@ -68,25 +66,21 @@ export default function SignIn() {
 			})
 	};
 
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(formData);
-
 		axiosInstance
 			.post(`token/`, {
 				email: formData.email,
 				password: formData.password,
-				
 			})
 			.then((res) => {
 				localStorage.setItem('access_token', res.data.access);
 				localStorage.setItem('refresh_token', res.data.refresh);
 				axiosInstance.defaults.headers['Authorization'] =
 					'JWT ' + localStorage.getItem('access_token');
-				history.push('/blog');
-				//console.log(res);
-				//console.log(res.data);
+				history.push('/');
+				document.location.reload()
 			})
 			.then(() => {handleConvert()})
 	};
@@ -101,7 +95,7 @@ export default function SignIn() {
 				<Typography component="h1" variant="h5">
 					Sign in
 				</Typography>
-				<form className={classes.form} noValidate>
+				<form className={classes.form} noValidate onSubmit={e => handleSubmit(e)}>
 					<TextField variant="outlined" margin="normal" required
 						fullWidth id="email" label="Email Address" name="email"
 						autoComplete="email" autoFocus
@@ -119,18 +113,18 @@ export default function SignIn() {
 					<Button type="submit" fullWidth
 						variant="contained" color="primary"
 						className={classes.submit}
-						onClick={handleSubmit}
+						//onClick={handleSubmit}
 					>
 						Sign In
 					</Button>
 					<Grid container>
-						<Grid item xs>
+						<Grid item xs>{/*
 							<Link href="#" variant="body2">
 								Forgot password?
-							</Link>
+						</Link>*/}
 						</Grid>
 						<Grid item>
-							<Link href="#" variant="body2">
+							<Link href="/register/signup/" variant="body2">
 								{"Don't have an account? Sign Up"}
 							</Link>
 						</Grid>
@@ -140,3 +134,9 @@ export default function SignIn() {
 		</Container>
 	);
 }
+
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { login })(SignIn);

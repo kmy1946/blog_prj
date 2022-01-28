@@ -82,13 +82,13 @@ export default function Edit(props) {
       category: formData.category,
       excerpt: formData.excerpt,
 		});
-    alert(`blog_id:${blog_id}`)
-    alert(`category:${formData.category}`)
+    //alert(`blog_id:${blog_id}`)
+    //alert(`category:${formData.category}`)
 		history.push({
-			pathname: `/blog`,
+			pathname: `/`,
 		});
-    alert(`slug:${slug},\n id:${id}`)
-    alert(`${formData.excerpt}`);
+    //alert(`slug:${slug},\n id:${id}`)
+    alert(`編集しました`);
 		window.location.reload();
 	};
 

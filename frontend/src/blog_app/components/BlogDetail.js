@@ -70,7 +70,7 @@ const BlogDetail = (props) => {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/posts/${slug}`);
+                const res = await axios.get(`http://127.0.0.1:8000/api/posts/${slug}`);
                 setBlog(res.data);
             }
             catch (err) {
